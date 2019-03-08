@@ -1,6 +1,6 @@
 const request = require('supertest');
 const server = require('./server.js');
-const db = require('./data/dbConfig.js');
+const db = require('../data/dbConfig.js');
 
 describe('The server', () => {
 
@@ -8,7 +8,7 @@ describe('The server', () => {
         await db('games').truncate()
     });
 
-    test('server returns correct response message', () => {
+    test('server returns correct response message', async () => {
         const response = await request(server).get('/');
         expect(response.body).toEqual({message: "Running!"})
     });
