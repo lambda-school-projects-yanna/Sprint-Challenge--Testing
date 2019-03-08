@@ -26,11 +26,11 @@ describe('The server', () => {
 
         it('uses json data type', async () => {
             const data = await request(server).get('/games');
-            expect(data.type).toMatch('/application/json');
+            expect(data.type).toMatch('application/json');
         });
 
         it('always returns an array', async () => {
-            const response = await request(server).get('games');
+            const response = await request(server).get('/games');
             expect(response.body).toEqual([]);
         });
     });
@@ -48,7 +48,7 @@ describe('The server', () => {
                 releaseYear: '1980'
             };
             const response = await request(server).post('/games').send(game);
-            expect(response).toBe(201);
+            expect(response.status).toBe(201);
         });
         
         test('responds with 422 when res.body is missing fields', async () => {
@@ -56,7 +56,7 @@ describe('The server', () => {
                 title: 'Pacman',
             };
             const response = await request(server).post('/games').send(game);
-            expect(response).toBe(422);
+            expect(response.status).toBe(422);
         });
 
         test('it uses json data type', async () => {
@@ -66,7 +66,7 @@ describe('The server', () => {
                 releaseYear: '1980'
             };
             const data = await request(server).post('/games').send(game);
-            expect(data.type).toMatch('/application/json');
+            expect(data.type).toMatch('application/json');
         });
     });
 
